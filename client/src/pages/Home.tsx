@@ -162,7 +162,7 @@ const services = [
   {
     title: "Training",
     description:
-      "We develop training curriculum and practice design in concert with L&D teams so people move from awareness to fluency, confidence, and repeatable habits. We have helped organizations to build out training paths, curriculum, and sustainment resources that take learning and application to the next level.",
+      "We develop and deliver training curriculum and practice design in concert with L&D teams so people move from awareness to fluency, confidence, and repeatable habits. We have helped organizations to build out training paths, curriculum, and sustainment resources that take learning and application to the next level.",
     icon: GraduationCap,
   },
   {
