@@ -166,9 +166,9 @@ const services = [
     icon: GraduationCap,
   },
   {
-    title: "Tools",
+    title: "Custom Software",
     description:
-      "We work in the designing of role-specific AI workflows and building custom tools that help the organization turn adoption into measurable operating value. We can build bespoke software to harness AI and deploy for real work use cases.",
+      "We design and build role-specific AI applications. From goal tracking to survey platforms to agent harnesses. We deploy on your infrastructure or ours, and you own the code. Your tools, your data, your competitive advantage.",
     icon: Workflow,
   },
 ];
@@ -196,6 +196,29 @@ const credibilityPoints = [
   "Human-centered adoption strategy, not tool hype.",
   "Partnership approach designed for HR, L&D, operations, and leadership teams.",
   "Custom advisory work that can move from diagnosis to enablement to tailored build-out.",
+];
+
+const customTools = [
+  {
+    title: "Goal Tracking & Analysis",
+    description: "Real-time performance dashboards with AI-powered insights. Track progress, surface blockers, and make data-driven decisions.",
+  },
+  {
+    title: "Custom Survey Platform",
+    description: "Replace expensive SaaS with a lean, custom platform built for your workflows. Capture feedback, analyze patterns, and act faster.",
+  },
+  {
+    title: "Agent Harness",
+    description: "Test, deploy, and monitor AI agents in production safely. Built for teams that need control, visibility, and reliability.",
+  },
+  {
+    title: "Content Library with AI Translation",
+    description: "Centralized knowledge base with AI-powered translation, cataloging, and discovery. Scale your content globally without the overhead.",
+  },
+  {
+    title: "Idea Submission Platform",
+    description: "Capture product ideas and improvements from your team. Organize, vote, and track progress — all in one place.",
+  },
 ];
 
 const aiTools = [
@@ -630,6 +653,40 @@ export default function Home() {
                   </article>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── What We Build ── */}
+        <section id="what-we-build" className="border-b border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] py-24">
+          <div className="container">
+            <div className="mb-16 max-w-2xl">
+              <div className="section-tag">What we build</div>
+              <h2 className="mt-6 font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
+                Custom software that turns AI ambition into measurable value.
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                We don't just design workflows — we build, deploy, and maintain production software. You own the code, your data stays yours, and your competitive advantage is protected.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {customTools.map((tool) => (
+                <div
+                  key={tool.title}
+                  className="group rounded-[1.8rem] border border-slate-200 bg-white p-8 shadow-[0_16px_40px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(88,119,255,0.12)]"
+                >
+                  <div className="flex size-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(127,216,255,0.18),rgba(165,125,255,0.14))] text-slate-700">
+                    <Sparkles className="size-5" />
+                  </div>
+                  <h3 className="mt-6 font-display text-xl font-semibold tracking-[-0.03em] text-slate-950">
+                    {tool.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-slate-600">
+                    {tool.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
