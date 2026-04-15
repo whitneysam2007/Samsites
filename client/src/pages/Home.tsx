@@ -582,7 +582,7 @@ export default function Home() {
                 <div className="absolute inset-x-10 bottom-9 rounded-[1.35rem] border border-white/70 bg-white/84 p-6 backdrop-blur-xl shadow-[0_18px_40px_rgba(30,41,59,0.12)]">
                   <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Operating principle</div>
                   <p className="mt-3 text-lg font-medium leading-7 text-slate-900">
-                    AI rollouts rarely fail because of the tech. They stall when people lack trust, clarity, and practical ways to use the tools. We help you address the human side with advisory, training, and custom tools so the technology can actually take hold.
+                    AI rollouts rarely fail because of the tech. They stall when people lack trust, clarity, and practical ways to use the tools. We help you address the human side with advisory, training, and custom tools so the people and the tech can get to work.
                   </p>
                 </div>
               </div>
