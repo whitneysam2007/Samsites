@@ -534,7 +534,7 @@ export default function Home() {
               </h1>
 
               <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl">
-                If your organization is trying to move from AI interest to disciplined rollout, we help you assess readiness, build capability, and put bespoke AI tools to work.
+                If your organization is trying to move from AI interest to disciplined rollout, we help you assess readiness, build capability, and put bespoke workflows and AI tools to work.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
