@@ -219,6 +219,10 @@ const customTools = [
     title: "Idea Submission Platform",
     description: "Capture product ideas and improvements from your team. Organize, vote, and track progress — all in one place.",
   },
+  {
+    title: "Leadership Development Tracking",
+    description: "Track growth, skills development, and progress toward leadership goals. Measure impact, identify development gaps, and support continuous improvement.",
+  },
 ];
 
 const aiTools = [
