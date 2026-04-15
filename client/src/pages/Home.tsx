@@ -8,6 +8,12 @@ Avoid generic startup tropes, centered filler layouts, and playful visual langua
 import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   ArrowRight,
   CheckCircle2,
   Compass,
@@ -357,6 +363,7 @@ export default function Home() {
     title: string;
     description: string;
   } | null>(null);
+  const [showTerms, setShowTerms] = useState(false);
 
   useEffect(() => {
     emailjs.init(emailjsPublicKey);
@@ -1139,11 +1146,80 @@ export default function Home() {
             <img alt="PAIIG logo" className="h-8 w-auto" src={logoImage} />
             <div className="text-sm font-semibold text-slate-700">Practical AI Implementation Group</div>
           </div>
-          <div className="text-xs text-slate-400">
-            © {new Date().getFullYear()} Practical AI Implementation Group. All rights reserved.
+          <div className="flex items-center gap-6 text-xs text-slate-400">
+            <button
+              onClick={() => setShowTerms(true)}
+              className="hover:text-slate-600 transition-colors underline"
+            >
+              Terms of Service
+            </button>
+            <div>
+              © {new Date().getFullYear()} Practical AI Implementation Group. All rights reserved.
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* Terms of Service Modal */}
+      <Dialog open={showTerms} onOpenChange={setShowTerms}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Terms of Service</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 text-sm leading-relaxed text-slate-700">
+            <div>
+              <p className="font-semibold">Practical AI Implementation Group (PAIIG)</p>
+              <p className="mt-2">These Terms of Service govern the relationship between Practical AI Implementation Group, LLC ("PAIIG," "we," "us," or "our") and any organization or individual engaging our services ("Client," "you," or "your").</p>
+              <p className="mt-2">By engaging PAIIG for Advisory Services, Training Services, or Custom Software Development Services, you acknowledge that you have read, understood, and agree to be bound by these Terms.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Services Overview</h3>
+              <p><strong>Advisory Services:</strong> Assessment and consultation on AI readiness, adoption strategy, and organizational implementation planning.</p>
+              <p className="mt-2"><strong>Training Services:</strong> Curriculum development, delivery, and practice design to build organizational capability in AI adoption.</p>
+              <p className="mt-2"><strong>Custom Software Development:</strong> Design and development of custom applications and tools tailored to your organization's workflows.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Payment Terms</h3>
+              <p><strong>Advisory & Training:</strong> 100% due upfront before services commence. All fees are non-refundable once services have begun.</p>
+              <p className="mt-2"><strong>Custom Software:</strong> 50% deposit upon SOW signature; 50% final payment upon delivery and acceptance. Net 30 from invoice date.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Intellectual Property</h3>
+              <p>For custom software, Client owns all work product upon final payment. PAIIG retains ownership of pre-existing code libraries, frameworks, and the right to use learnings and patterns in future work.</p>
+              <p className="mt-2">For advisory and training services, PAIIG retains ownership of all materials, frameworks, and methodologies.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Confidentiality & Use of Name</h3>
+              <p>PAIIG may use Client's name, logo, and general description of the engagement in marketing materials, case studies, and proposals unless Client opts out in writing within 30 days of project completion.</p>
+              <p className="mt-2">PAIIG will not disclose Client's confidential business information, pricing, or proprietary strategies without explicit written consent.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Warranties & Liability</h3>
+              <p>PAIIG warrants services will be performed professionally and consistently with industry standards. However, PAIIG does not guarantee specific outcomes, business results, or ROI.</p>
+              <p className="mt-2">PAIIG's total liability is limited to fees paid in the preceding 12 months. PAIIG is not liable for indirect, consequential, or punitive damages.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Termination</h3>
+              <p>Either party may terminate with 30 days' notice. Client remains responsible for all accrued fees. Material breaches may be terminated immediately with 10 business days' notice to cure.</p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">Dispute Resolution</h3>
+              <p>Any disputes shall be resolved by binding arbitration under the American Arbitration Association's Commercial Arbitration Rules.</p>
+            </div>
+
+            <div className="text-xs text-slate-500 border-t border-slate-200 pt-4">
+              <p>For the complete Terms of Service, please contact us directly.</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
