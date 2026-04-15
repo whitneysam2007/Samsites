@@ -666,7 +666,7 @@ export default function Home() {
                 Custom software that turns AI ambition into measurable value.
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                We don't just design workflows — we build, deploy, and maintain production software. You own the code, your data stays yours, and your competitive advantage is protected. Below are examples of tools we have built and deployed.
+                We don't just design workflows — we build, deploy, and maintain production software. You own the code, your data stays yours, and your competitive advantage is protected. Below are examples of tools we have built and deployed. Partner with us to bring your vision to life.
               </p>
             </div>
 
