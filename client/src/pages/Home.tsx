@@ -156,19 +156,19 @@ const services = [
   {
     title: "Advisory",
     description:
-      "A structured advisory offer that uses AI to survey and understand organizational readiness, surface strengths and weak areas, and return practical reports with rollout recommendations. From universities to multinationals, we have helped teams get results with AI.",
+      "We help you discover the deeper needs and obstacles to AI fluency and results. Using our unique tools, we work to understand strengths and weak areas, and return practical reports with rollout recommendations.",
     icon: Compass,
   },
   {
     title: "Training",
     description:
-      "Training curriculum and practice design developed in concert with L&D teams so people move from awareness to fluency, confidence, and repeatable habits. We have helped organizations to build out training paths, curriculum, and sustainment resources that take learning and application to the next level.",
+      "We develop training curriculum and practice design in concert with L&D teams so people move from awareness to fluency, confidence, and repeatable habits. We have helped organizations to build out training paths, curriculum, and sustainment resources that take learning and application to the next level.",
     icon: GraduationCap,
   },
   {
     title: "Tools",
     description:
-      "We work in the designing of role-specific AI workflows and building custom tools that help the organization turn adoption into measurable operating value. We can build bespoke tools to harness AI and deploy for real work use cases. From learning platforms to goal/OKR tracking, we have deployed tools for enterprise clients that get work done.",
+      "We work in the designing of role-specific AI workflows and building custom tools that help the organization turn adoption into measurable operating value. We can build bespoke software to harness AI and deploy for real work use cases.",
     icon: Workflow,
   },
 ];
@@ -530,11 +530,11 @@ export default function Home() {
               </div>
 
               <h1 className="mt-8 max-w-4xl font-display text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-slate-950 sm:text-6xl xl:text-7xl">
-                Practical AI help for organizations
+                Practical AI help for your organization
               </h1>
 
               <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl">
-                If your organization is trying to move from AI interest to disciplined rollout, we help leaders, HR, L&amp;D, and intact teams assess readiness, build capability, and put bespoke AI tools to work.
+                If your organization is trying to move from AI interest to disciplined rollout, we help you assess readiness, build capability, and put bespoke AI tools to work.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -556,8 +556,8 @@ export default function Home() {
               <div className="mt-12 grid gap-4 sm:grid-cols-3">
                 {[
                   ["Advisory", "Identify strengths, weak areas, and rollout priorities."],
-                  ["Training", "Build confidence, habits, and manager reinforcement."],
-                  ["Tools", "Design bespoke AI workflows and practical tools."],
+                  ["Training", "Custom training that builds skills and habits that stick"],
+                  ["Tools", "We design and implement custom built tools for real value and ROI"],
                 ].map(([title, text]) => (
                   <div
                     key={title}
@@ -597,11 +597,11 @@ export default function Home() {
               <div>
                 <div className="section-tag">Core services</div>
                 <h2 className="mt-6 max-w-lg font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  Three ways we help organizations move from AI ambition to execution.
+                  We help your organization move from AI ambition to execution.
                 </h2>
               </div>
               <p className="max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                Each engagement is designed to reduce uncertainty, build capability, and give leadership and frontline teams a practical path from AI ambition to day-to-day adoption.
+                Each engagement is designed to reduce uncertainty, build capability, and give teams a practical path from AI ambition to day-to-day adoption.
               </p>
             </div>
 
@@ -648,7 +648,7 @@ export default function Home() {
                   The unique human centered approach that works
                 </h2>
                 <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">
-                  The idea is simple: AI adoption usually breaks down where trust, clarity, and daily habits are weak. The work succeeds when organizations understand where resistance sits, create guardrails people can trust, and make new habits visible in daily work.
+                  The idea is simple: AI adoption usually breaks down where technology meets people. The work succeeds when organizations understand how to help people feel seen in the process, create guardrails people can trust, and make new habits visible in daily work.
                 </p>
               </div>
 
@@ -678,36 +678,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Why Us ── */}
-        <section id="why-us" className="py-24">
-          <div className="container">
-            <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-              <div>
-                <div className="section-tag">Why work with us</div>
-                <h2 className="mt-6 max-w-lg font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  Built for the organizations doing the hard work of real adoption.
-                </h2>
-                <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600">
-                  We are not a technology vendor. We are an implementation partner that sits alongside HR, L&amp;D, and leadership teams to make adoption real — not just announced.
-                </p>
-              </div>
-
-              <div className="grid gap-4">
-                {credibilityPoints.map((point) => (
-                  <div
-                    key={point}
-                    className="flex items-start gap-4 rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
-                  >
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,rgba(127,216,255,0.22),rgba(165,125,255,0.18))]">
-                      <ShieldCheck className="size-4 text-slate-700" />
-                    </div>
-                    <p className="text-base leading-7 text-slate-700">{point}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── AI Readiness Survey ── */}
         <section id="readiness-survey" className="relative overflow-hidden border-b border-slate-200/70 bg-[linear-gradient(180deg,#f7fbff_0%,#ffffff_100%)] py-24">
