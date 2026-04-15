@@ -271,6 +271,11 @@ const aiTools = [
     company: "Cursor",
     logo: "https://www.google.com/s2/favicons?domain=cursor.com&sz=128",
   },
+  {
+    name: "Claude Cowork",
+    company: "Anthropic",
+    logo: "https://www.google.com/s2/favicons?domain=claude.com&sz=128",
+  },
 ];
 
 const initialForm: ContactForm = {
