@@ -172,7 +172,7 @@ const services = [
     icon: GraduationCap,
   },
   {
-    title: "Custom Software",
+    title: "Custom Tools",
     description:
       "We design and build role-specific AI applications. From goal tracking to survey platforms to agent harnesses. We deploy on your infrastructure or ours, and you own the code. Your tools, your data, your competitive advantage.",
     icon: Workflow,
@@ -679,7 +679,7 @@ export default function Home() {
             <div className="mb-16 max-w-2xl">
               <div className="section-tag">What we build</div>
               <h2 className="mt-6 font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                Custom software that turns AI ambition into measurable value.
+                Custom tools that turn AI ambition into measurable value.
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">
                 We don't just design workflows — we build, deploy, and maintain production software. You own the code, your data stays yours, and your competitive advantage is protected. Below are examples of tools we have built and deployed. Partner with us to bring your vision to life.
