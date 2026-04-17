@@ -315,7 +315,7 @@ const getReadinessLevel = (score: number) => {
     return {
       title: "Early Awareness",
       description:
-        "Your organization is at the very beginning of its AI journey. Most people haven't yet used AI tools in their work, and there's likely unaddressed fear or uncertainty about what AI means for them. Start with mindset — help people see AI as an enhancement, not a replacement — before introducing any tools or training.",
+        "Your organization is at the very beginning of its AI journey. Most people haven't yet used AI tools in their work, and there's likely unaddressed fear or uncertainty about what AI means for them. Start here with mindset — help people see AI as an enhancement, not a replacement — before introducing any tools or training.",
     };
   }
 
@@ -323,7 +323,7 @@ const getReadinessLevel = (score: number) => {
     return {
       title: "Curious but Stuck",
       description:
-        "There's some awareness and possibly pockets of interest, but AI hasn't become part of how people actually work. The gap is usually permission and practical exposure. Focus on Layer 1: get the approved tool into people's hands with real tasks and low-stakes practice.",
+        "There's some awareness and possibly pockets of interest, but AI hasn't become part of how people actually work. The gap is usually permission and practical exposure. The opportunity is hands-on — put approved tools into people's hands with real tasks and low-stakes practice so they build confidence.",
     };
   }
 
@@ -331,7 +331,7 @@ const getReadinessLevel = (score: number) => {
     return {
       title: "Building Momentum",
       description:
-        "People are starting to use AI and see value, but it's mostly individual and inconsistent. This is the Layer 2 moment: build shared habits around prompting, verification, and safe use so the organization develops a common standard, not just scattered experiments.",
+        "People are starting to use AI and see value, but it's mostly individual and inconsistent. What's needed now is consistency — build shared habits around prompting, verification, and safe use so your organization develops a common standard, not just scattered experiments.",
     };
   }
 
@@ -339,14 +339,14 @@ const getReadinessLevel = (score: number) => {
     return {
       title: "Gaining Traction",
       description:
-        "AI use is becoming part of the culture. People are reasonably fluent and there are emerging team-level practices. The opportunity now is Layer 3: translate personal productivity into role-specific workflows and repeatable team patterns that deliver measurable business value.",
+        "AI use is becoming part of the culture. People are reasonably fluent and there are emerging team-level practices. The next move is operationalization — translate personal productivity into role-specific workflows and repeatable team patterns that deliver measurable business value.",
     };
   }
 
   return {
     title: "Leading Practice",
     description:
-      "Your organization has strong AI fluency, shared operating habits, and role-based application. The focus shifts to scaling what works, capturing case studies, and building the learning infrastructure that keeps the organization ahead as AI tools and capabilities evolve.",
+      "Your organization has strong AI fluency, shared operating habits, and role-based application. The path forward is scaling — focus on scaling what works, capturing case studies, and building the learning infrastructure that keeps your organization ahead as AI tools and capabilities evolve.",
   };
 };
 
@@ -941,10 +941,12 @@ export default function Home() {
                             <p className="mt-2 text-sm leading-7 text-emerald-900/90">
                               Your readiness score is <span className="font-semibold">{surveyResult.score} / {totalPossibleScore}</span>, which places you in the <span className="font-semibold">{surveyResult.title}</span> level.
                             </p>
-                            <p className="mt-2 text-sm leading-7 text-emerald-900/90">{surveyResult.description}</p>
-                            <p className="mt-2 text-sm leading-7 text-emerald-900/90">
-                              Thank you for sharing your responses. We will review the assessment and get back to you within 48 hours.
-                            </p>
+                              <p className="mt-2 text-sm leading-7 text-emerald-900/90">{surveyResult.description}</p>
+                            <div className="mt-4">
+                              <Button asChild className="rounded-full bg-emerald-600 px-6 py-2 text-sm text-white hover:bg-emerald-700">
+                                <a href="#consultation">Schedule a call and let's explore next steps</a>
+                              </Button>
+                            </div>
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
                               <Button asChild className="rounded-full bg-emerald-900 px-5 py-5 text-sm text-white hover:bg-emerald-800">
                                 <a href="#consultation">
