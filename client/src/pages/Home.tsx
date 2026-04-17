@@ -1143,7 +1143,7 @@ export default function Home() {
           <div className="container">
             <div className="section-tag">Who we are</div>
             <h2 className="mt-6 max-w-xl font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-              Built by practitioners, for practitioners.
+              Making AI Accessible to Everyone
             </h2>
 
             <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
