@@ -1137,6 +1137,88 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ── Who We Are ── */}
+        <section id="who-we-are" className="border-t border-slate-200/70 bg-white py-24">
+          <div className="container">
+            <div className="section-tag">Who we are</div>
+            <h2 className="mt-6 max-w-xl font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
+              Built by practitioners, for practitioners.
+            </h2>
+
+            <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+              {/* Photo + name card */}
+              <div className="flex flex-col gap-6">
+                <div className="overflow-hidden rounded-[1.8rem] border border-slate-200 shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+                  <img
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663520822653/hxEnjNE3QAq9ebDA5FEMQk/SamWhitneyArbingerHeadshots2024-3_b38124bb.jpg"
+                    alt="Sam Whitney — Founder, Practical AI Implementation Group"
+                    className="h-full w-full object-cover object-top"
+                    style={{ maxHeight: '480px' }}
+                  />
+                </div>
+                <div>
+                  <div className="font-display text-2xl font-semibold tracking-[-0.03em] text-slate-950">Sam Whitney</div>
+                  <div className="mt-1 text-sm font-medium uppercase tracking-[0.18em] text-slate-500">Founder &amp; Principal</div>
+                  <a
+                    href="https://www.linkedin.com/in/samuel-whitney1/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <svg className="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    Connect on LinkedIn
+                  </a>
+                </div>
+              </div>
+
+              {/* Bio + values */}
+              <div className="flex flex-col gap-10">
+                <div>
+                  <p className="text-lg leading-8 text-slate-700">
+                    Sam Whitney is a builder-strategist with 13 years of experience leading product, culture, and AI transformation across some of the world's most demanding organizations — from hospitals and defense contractors to sovereign wealth funds, global non-profits, and logistics enterprises.
+                  </p>
+                  <p className="mt-5 text-lg leading-8 text-slate-700">
+                    He has facilitated hundreds of workshops for groups ranging from 10 to 500 people, led international teams of 100+, and built and deployed enterprise-grade AI tools used in production. His work sits at the intersection of human behavior and technology — helping organizations move from AI ambition to disciplined, measurable execution.
+                  </p>
+                  <p className="mt-5 text-lg leading-8 text-slate-700">
+                    PAIIG exists because most organizations don't need more AI hype. They need a trusted partner who can assess where they actually are, build what they actually need, and help their people actually use it.
+                  </p>
+                </div>
+
+                {/* Values */}
+                <div>
+                  <div className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Our values</div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    {[
+                      {
+                        title: "Human First",
+                        text: "AI works for people, not the other way around. We design every engagement so that technology serves as a genuine partner to the humans using it — not a replacement for their judgment or expertise."
+                      },
+                      {
+                        title: "Integrity",
+                        text: "We do what we say we will do. That means hard work, honest communication, and following through on every commitment — from discovery to delivery and beyond."
+                      },
+                      {
+                        title: "Helpfulness",
+                        text: "Everything we do is in service of making your work easier, your team more capable, and your organization more effective. If it doesn't help, we don't do it."
+                      },
+                      {
+                        title: "Results",
+                        text: "We measure our success by yours. Every advisory engagement, training program, and custom tool is designed to produce outcomes you can see, measure, and build on."
+                      },
+                    ].map((v) => (
+                      <div key={v.title} className="rounded-[1.35rem] border border-slate-200 bg-slate-50/60 p-6">
+                        <div className="font-display text-base font-semibold tracking-[-0.02em] text-slate-950">{v.title}</div>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">{v.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* ── Footer ── */}
