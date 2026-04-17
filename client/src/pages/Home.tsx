@@ -539,8 +539,8 @@ export default function Home() {
             <a className="transition-colors hover:text-slate-950" href="#approach">
               Approach
             </a>
-            <a className="transition-colors hover:text-slate-950" href="#why-us">
-              Why us
+            <a className="transition-colors hover:text-slate-950" href="#who-we-are">
+              Who We Are
             </a>
           </nav>
 
@@ -1183,6 +1183,9 @@ export default function Home() {
                   </p>
                   <p className="mt-5 text-lg leading-8 text-slate-700">
                     PAIIG exists because most organizations don't need more AI hype. They need a trusted partner who can assess where they actually are, build what they actually need, and help their people actually use it.
+                  </p>
+                  <p className="mt-5 text-lg leading-8 text-slate-700">
+                    While Sam works all over the world, he is based in Layton, Utah with his wife and 5 children.
                   </p>
                 </div>
 
