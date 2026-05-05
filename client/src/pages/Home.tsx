@@ -81,72 +81,72 @@ const readinessQuestions: Array<{
   {
     key: "q1",
     number: 2,
-    category: "Mindset & openness",
+    category: "Mindset & culture",
     prompt:
-      "People in our organization see AI as a tool that enhances their expertise rather than a threat to their role or value.",
+      "Our organization sees AI as a competitive advantage in how we build and ship products, not just a productivity shortcut.",
   },
   {
     key: "q2",
     number: 3,
-    category: "Mindset & openness",
+    category: "Mindset & culture",
     prompt:
-      "People in our organization feel they have genuine permission to experiment with AI tools — even if they make mistakes along the way.",
+      "People on our product and development teams feel they have genuine permission to experiment with new AI tools and no-code approaches.",
   },
   {
     key: "q4",
     number: 4,
-    category: "Personal fluency & comfort",
+    category: "Current process speed",
     prompt:
-      "People across our organization regularly use AI tools to help with everyday tasks like summarising, drafting, or preparing for meetings.",
+      "Our organization can move from a validated product idea to a working prototype in under two weeks.",
   },
   {
     key: "q5",
     number: 5,
-    category: "Personal fluency & comfort",
+    category: "Current process speed",
     prompt:
-      "Most people in our organization could identify at least one task in their daily work where AI would save them meaningful time or effort.",
+      "Our product development cycle is fast enough to test and respond to market signals before the window closes.",
   },
   {
     key: "q6",
     number: 6,
-    category: "Personal fluency & comfort",
+    category: "Tool fluency",
     prompt:
-      "People in our organization feel confident using AI tools without needing someone else to guide them through it.",
+      "Team members are comfortable using AI tools (like Replit, Claude, or ChatGPT) to accelerate prototyping and development tasks.",
   },
   {
     key: "q7",
     number: 7,
-    category: "Shared operating habits",
+    category: "Tool fluency",
     prompt:
-      "When people in our organization use AI tools, they consistently provide context (role, audience, purpose) to get better outputs.",
+      "Our teams regularly use AI to assist with tasks like drafting requirements, generating code, or analyzing user feedback.",
   },
   {
     key: "q8",
     number: 8,
-    category: "Shared operating habits",
+    category: "Process & workflow",
     prompt:
-      "There is a common expectation across our organization that AI-generated content is reviewed and verified before it's shared or acted on.",
+      "We have a clear, repeatable process for moving from idea to prototype to tested product — and most of the team knows it.",
   },
   {
     key: "q9",
     number: 9,
-    category: "Shared operating habits",
+    category: "Process & workflow",
     prompt:
-      "People in our organization have a clear understanding of what information is and isn't safe to share with AI tools.",
+      "Our organization tests with real users early in the product cycle, before significant development investment is made.",
   },
   {
     key: "q10",
     number: 10,
-    category: "Role-based application & workflow value",
+    category: "Leadership & investment",
     prompt:
-      "AI use in our organization has moved beyond general productivity into role-specific workflows and practices.",
+      "Leadership in our organization actively supports and invests in faster, AI-enabled product development approaches.",
   },
   {
     key: "q11",
     number: 11,
-    category: "Role-based application & workflow value",
+    category: "Leadership & investment",
     prompt:
-      "Teams in our organization share examples and practices for how they use AI together — not just individually.",
+      "Our organization measures and tracks the speed and efficiency of our product development cycle as a key performance indicator.",
   },
 ];
 
@@ -162,19 +162,19 @@ const services = [
   {
     title: "Advisory",
     description:
-      "We help you discover the deeper needs and obstacles to AI fluency and results. Using our unique tools, we work to understand strengths and weak areas, and return practical reports with rollout recommendations.",
+      "We assess where your product process is breaking down — from ideation bottlenecks to slow testing cycles — and return a practical roadmap for AI-powered transformation. Discovery before anything else.",
     icon: Compass,
   },
   {
     title: "Training",
     description:
-      "We develop and deliver training curriculum and practice design in concert with L&D teams so people move from awareness to fluency, confidence, and repeatable habits.",
+      "From AI basics to advanced no-code prototyping with Replit and AI agents — we run workshops where teams leave with working prototypes, process maps, and a new vision for what's possible. We also embed with teams end-to-end.",
     icon: GraduationCap,
   },
   {
     title: "Custom Tools",
     description:
-      "We design and build role-specific AI applications. From goal tracking to survey platforms to agent harnesses. We deploy on your infrastructure or ours, and you own the code. Your tools, your data, your competitive advantage.",
+      "We build and deploy custom tools that embed AI directly into your product workflow — from idea capture to prototype to deployment. You own the code, your data stays yours, and your competitive advantage is protected.",
     icon: Workflow,
   },
 ];
@@ -182,26 +182,26 @@ const services = [
 const operatingModel = [
   {
     label: "01",
-    title: "Discovery before rollout",
-    text: "We begin by identifying where friction, opportunity, and readiness actually live so implementation decisions are based on real conditions rather than assumptions.",
+    title: "Signal to idea",
+    text: "We start by identifying the real product opportunity — the signal in the market, the unmet need, the friction point worth solving. Discovery before build.",
   },
   {
     label: "02",
-    title: "Capability building with L&D",
-    text: "We shape training, manager reinforcement, and safe-use habits so adoption grows through practical confidence, not compliance theater.",
+    title: "Idea to prototype",
+    text: "Using no-code tools like Replit and AI agents, teams move from concept to working prototype in days. We teach the process, facilitate the build, and leave teams with a new capability.",
   },
   {
     label: "03",
-    title: "Role-based implementation",
-    text: "We translate early wins into workflow-level practice, governance-aware routines, and tailored tools that support lasting business value.",
+    title: "Prototype to deployed product",
+    text: "We guide testing, iteration, and deployment so organizations don't just prototype — they ship. Faster cycles, better products, and a team that knows how to do it again.",
   },
 ];
 
 const credibilityPoints = [
-  "Executive-ready analysis and recommendation framing.",
-  "Human-centered adoption strategy, not tool hype.",
-  "Partnership approach designed for HR, L&D, operations, and leadership teams.",
-  "Custom advisory work that can move from diagnosis to enablement to tailored build-out.",
+  "Executive-ready analysis and product process roadmaps.",
+  "Human-centered transformation strategy, not tool hype.",
+  "Partnership approach designed for product teams, L&D, and executive leadership.",
+  "End-to-end capability: from discovery and training to custom-built deployed tools.",
 ];
 
 const customTools = [
@@ -310,44 +310,46 @@ const initialSurveyForm: SurveyForm = {
   q11: "",
 };
 
-const getReadinessLevel = (score: number) => {
-  if (score <= 20) {
-    return {
-      title: "Early Awareness",
-      description:
-        "Your organization is at the very beginning of its AI journey. Most people haven't yet used AI tools in their work, and there's likely unaddressed fear or uncertainty about what AI means for them. Start here with mindset — help people see AI as an enhancement, not a replacement — before introducing any tools or training.",
-    };
-  }
-
-  if (score <= 28) {
-    return {
-      title: "Curious but Stuck",
-      description:
-        "There's some awareness and possibly pockets of interest, but AI hasn't become part of how people actually work. The gap is usually permission and practical exposure. The opportunity is hands-on — put approved tools into people's hands with real tasks and low-stakes practice so they build confidence.",
-    };
-  }
-
-  if (score <= 36) {
-    return {
-      title: "Building Momentum",
-      description:
-        "People are starting to use AI and see value, but it's mostly individual and inconsistent. What's needed now is consistency — build shared habits around prompting, verification, and safe use so your organization develops a common standard, not just scattered experiments.",
-    };
-  }
-
-  if (score <= 44) {
-    return {
-      title: "Gaining Traction",
-      description:
-        "AI use is becoming part of the culture. People are reasonably fluent and there are emerging team-level practices. The next move is operationalization — translate personal productivity into role-specific workflows and repeatable team patterns that deliver measurable business value.",
-    };
-  }
-
-  return {
-    title: "Leading Practice",
+const readinessLevels = [
+  {
+    title: "Pre-Transformation",
+    min: 0,
+    max: 20,
     description:
-      "Your organization has strong AI fluency, shared operating habits, and role-based application. The path forward is scaling — focus on scaling what works, capturing case studies, and building the learning infrastructure that keeps your organization ahead as AI tools and capabilities evolve.",
-  };
+      "Your product development process is largely traditional — long cycles, heavy consensus, and limited AI tool use. Start here with mindset and exposure. The goal is to help your team see what's possible before committing to any new process or tooling.",
+  },
+  {
+    title: "Aware but Not Moving",
+    min: 21,
+    max: 28,
+    description:
+      "There's awareness that AI could accelerate product development, but it hasn't changed how your team actually works. The gap is usually permission and practical experience. The opportunity is to get hands-on — low-stakes prototyping with real tools builds confidence faster than any training alone.",
+  },
+  {
+    title: "Early Mover",
+    min: 29,
+    max: 36,
+    description:
+      "Your team is experimenting with AI tools and seeing early value, but it's inconsistent and individual. What's needed now is a shared process — a repeatable path from idea to prototype to test that the whole team can follow, not just the early adopters.",
+  },
+  {
+    title: "Building Velocity",
+    min: 37,
+    max: 44,
+    description:
+      "AI-powered development is becoming part of how your team works. Prototyping is faster and there are emerging team-level practices. The next move is to operationalize — turn individual wins into repeatable workflows and role-specific tools that deliver measurable speed and value.",
+  },
+  {
+    title: "Transformation Leader",
+    min: 45,
+    max: 50,
+    description:
+      "Your organization has strong AI fluency in product development, fast cycle times, and shared operating practices. The path forward is scaling — capture what's working, build the infrastructure to sustain it, and stay ahead as AI tools and capabilities continue to evolve.",
+  },
+];
+
+const getReadinessLevel = (score: number) => {
+  return readinessLevels.find((level) => score >= level.min && score <= level.max) ?? readinessLevels[readinessLevels.length - 1];
 };
 
 export default function Home() {
@@ -565,15 +567,15 @@ export default function Home() {
           <div className="container grid gap-14 py-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-end lg:py-24 xl:gap-20">
             <div className="relative z-10 max-w-2xl">
               <div className="inline-flex rounded-full border border-[#6f8cff]/30 bg-white/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-[#5877ff] shadow-[0_10px_30px_rgba(115,147,255,0.10)] backdrop-blur">
-                Advisory, training, and tools
+                Product Development Transformation
               </div>
 
               <h1 className="mt-8 max-w-4xl font-display text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-slate-950 sm:text-6xl xl:text-7xl">
-                Practical AI help for your organization
+                Build faster. Ship smarter. Transform how your organization creates.
               </h1>
 
               <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl">
-                If your organization is trying to move from AI interest to disciplined rollout, we help you assess readiness, build capability, and put bespoke workflows and AI tools to work.
+                If your organization is ready to move from slow, consensus-driven product cycles to AI-powered prototyping and deployment, we teach the tools, the process, and the mindset to get there.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -594,9 +596,9 @@ export default function Home() {
 
               <div className="mt-12 grid gap-4 sm:grid-cols-3">
                 {[
-                  ["Advisory", "Identify strengths, weak areas, and rollout priorities."],
-                  ["Training", "Custom training that builds skills and habits that stick"],
-                  ["Tools", "We design and implement custom built tools for real value and ROI"],
+                  ["Advisory", "Assess where your product process is breaking down and get a clear roadmap."],
+                  ["Training", "Learn to prototype, test, and ship with AI — teams leave with working products."],
+                  ["Tools", "Custom-built tools that embed AI directly into your product workflow."],
                 ].map(([title, text]) => (
                   <div
                     key={title}
@@ -621,7 +623,7 @@ export default function Home() {
                 <div className="absolute inset-x-10 bottom-9 rounded-[1.35rem] border border-white/70 bg-white/84 p-6 backdrop-blur-xl shadow-[0_18px_40px_rgba(30,41,59,0.12)]">
                   <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Operating principle</div>
                   <p className="mt-3 text-lg font-medium leading-7 text-slate-900">
-                    AI rollouts rarely fail because of the tech. They stall when people lack trust, clarity, and practical ways to use the tools. We help you address the human side with advisory, training, and custom tools so the people and the tech can get to work.
+                    The fastest organizations aren't the ones with the biggest teams. They're the ones who've learned to move from signal to shipped product in days — not months.
                   </p>
                 </div>
               </div>
@@ -636,11 +638,11 @@ export default function Home() {
               <div>
                 <div className="section-tag">Core services</div>
                 <h2 className="mt-6 max-w-lg font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  We help your organization move from AI ambition to execution.
+                  We help your organization transform how it builds, tests, and ships.
                 </h2>
               </div>
               <p className="max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                Each engagement is designed to reduce uncertainty, build capability, and give teams a practical path from AI ambition to day-to-day adoption.
+                Each engagement is designed to compress your product cycle, build team capability, and give leaders and product teams a practical path from idea to deployed product — faster than they thought possible.
               </p>
             </div>
 
@@ -669,6 +671,96 @@ export default function Home() {
                   </article>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Product Development Transformation Infographic ── */}
+        <section id="product-transformation" className="border-b border-slate-200/70 bg-[linear-gradient(180deg,#f0f6ff_0%,#ffffff_100%)] py-24">
+          <div className="container">
+            <div className="mb-14 max-w-2xl">
+              <div className="section-tag">The transformation</div>
+              <h2 className="mt-6 font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
+                From slow cycles to shipped products.
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                Most organizations are stuck in a product development model built for a different era. We teach a faster, AI-powered path from signal to shipped.
+              </p>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
+              {/* Traditional Path */}
+              <div className="rounded-[2rem] border border-red-100 bg-white p-8 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-2">
+                  <div className="size-2 rounded-full bg-red-400" />
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">Traditional approach</span>
+                </div>
+                <h3 className="font-display text-2xl font-semibold tracking-[-0.03em] text-slate-950">Slow. Expensive. Uncertain.</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-500">Months of planning, consensus-building, and development before anything is tested with real users.</p>
+                <div className="mt-8 space-y-3">
+                  {[
+                    { step: "01", label: "Idea surfaces", detail: "Weeks of internal discussion and alignment" },
+                    { step: "02", label: "Requirements phase", detail: "Months of documentation and stakeholder sign-off" },
+                    { step: "03", label: "Development begins", detail: "Large dev team, high cost, long timeline" },
+                    { step: "04", label: "Testing & feedback", detail: "Late-stage discovery of problems — expensive to fix" },
+                    { step: "05", label: "Launch (eventually)", detail: "Market window may have closed. ROI uncertain." },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 rounded-xl border border-red-100 bg-red-50/50 px-4 py-3">
+                      <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-red-100 text-xs font-semibold text-red-500">{item.step}</div>
+                      <div>
+                        <div className="text-sm font-semibold text-slate-800">{item.label}</div>
+                        <div className="text-xs leading-5 text-slate-500">{item.detail}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-red-500">Typical cycle time</div>
+                  <div className="mt-1 font-display text-2xl font-semibold text-red-700">6 – 18 months</div>
+                </div>
+              </div>
+
+              {/* PAIIG Path */}
+              <div className="rounded-[2rem] border border-blue-100 bg-white p-8 shadow-[0_16px_40px_rgba(88,119,255,0.10)]">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2">
+                  <div className="size-2 rounded-full bg-blue-500" />
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">The PAIIG way</span>
+                </div>
+                <h3 className="font-display text-2xl font-semibold tracking-[-0.03em] text-slate-950">Fast. Focused. Deployed.</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-500">AI-powered prototyping gets real products in front of real users in days — not months.</p>
+                <div className="mt-8 space-y-3">
+                  {[
+                    { step: "01", label: "Signal identified", detail: "Market signal, user need, or friction point surfaced" },
+                    { step: "02", label: "Idea shaped", detail: "Rapid ideation with AI — concept defined in hours" },
+                    { step: "03", label: "Prototype built", detail: "Working prototype via Replit + AI agents in days" },
+                    { step: "04", label: "Tested with users", detail: "Real feedback before significant investment is made" },
+                    { step: "05", label: "Developed & deployed", detail: "Ship with confidence. Team owns the process." },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 rounded-xl border border-blue-100 bg-blue-50/50 px-4 py-3">
+                      <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-600">{item.step}</div>
+                      <div>
+                        <div className="text-sm font-semibold text-slate-800">{item.label}</div>
+                        <div className="text-xs leading-5 text-slate-500">{item.detail}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-center">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">Typical cycle time</div>
+                  <div className="mt-1 font-display text-2xl font-semibold text-blue-700">Days to weeks</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 rounded-[1.6rem] border border-slate-200 bg-slate-950 px-8 py-7 text-center">
+              <p className="font-display text-xl font-semibold tracking-[-0.03em] text-white">
+                The difference isn't resources. It's process, tools, and the confidence to move.
+              </p>
+              <div className="mt-5">
+                <Button asChild className="rounded-full bg-white px-6 py-5 text-sm font-semibold text-slate-950 hover:bg-slate-100">
+                  <a href="#consultation">Talk to us about transforming your product process</a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -721,7 +813,7 @@ export default function Home() {
                   The unique human centered approach that works
                 </h2>
                 <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">
-                  The idea is simple: AI adoption usually breaks down where technology meets people. The work succeeds when organizations understand how to help people feel seen in the process, create guardrails people can trust, and make new habits visible in daily work.
+                  Product development fails not because organizations lack ideas — it fails because the process between idea and deployment is too slow, too expensive, and too dependent on consensus. We teach organizations to compress that cycle using AI tools, no-code prototyping, and agent-assisted workflows. The result is a team that can move from signal to shipped in days.
                 </p>
               </div>
 
@@ -757,12 +849,12 @@ export default function Home() {
           <div className="container">
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div className="lg:sticky lg:top-28">
-                <div className="section-tag">AI readiness survey</div>
+                <div className="section-tag">Product development readiness assessment</div>
                 <h2 className="mt-6 max-w-xl font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  Get an immediate read on how prepared your organization is for a Practical AI implementation.
+                  Find out how ready your organization is to transform how it builds and ships.
                 </h2>
                 <p className="mt-7 max-w-xl text-lg leading-8 text-slate-600">
-                  Start by submitting your contact details to unlock a quick assessment of readiness, likely friction points, and practical next priorities. Your score and interpretation stay hidden until every assessment question has been answered.
+                  Start by submitting your contact details to unlock a quick assessment of your product development readiness — where you're strong, where you're stuck, and what to do next. Your score stays hidden until every question is answered.
                 </p>
               </div>
 
@@ -854,7 +946,7 @@ export default function Home() {
                     </div>
 
                     <label className="mt-8 block space-y-2">
-                      <span className="text-sm text-slate-600">Q1. What is your organization's primary AI tool(s)?</span>
+                      <span className="text-sm text-slate-600">Q1. What AI or no-code tools does your team currently use in product development (if any)?</span>
                       <input
                         className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                         onChange={(event) => {
@@ -904,7 +996,7 @@ export default function Home() {
                     </div>
 
                     <label className="mt-8 block space-y-2">
-                      <span className="text-sm text-slate-600">Q12. What has your organization already tried to build AI readiness? What has worked, and what hasn't?</span>
+                      <span className="text-sm text-slate-600">Q12. Describe your current product development process — from idea to launch. Where does it slow down or break down?</span>
                       <textarea
                         className="min-h-40 w-full rounded-[1.6rem] border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                         onChange={(event) => {
@@ -912,7 +1004,7 @@ export default function Home() {
                           setSurveyResult(null);
                           setSurveyForm((current) => ({ ...current, experienceNotes: event.target.value }));
                         }}
-                        placeholder="Share any pilots, trainings, guidance, successes, friction points, or lessons learned so far."
+                        placeholder="Walk us through how a typical product idea moves from concept to launch in your organization. Where are the bottlenecks, handoffs, or delays?"
                         value={surveyForm.experienceNotes}
                       />
                     </label>
@@ -1181,7 +1273,7 @@ export default function Home() {
                     Sam Whitney is a builder-strategist with 13 years of experience leading product, culture, and AI transformation across some of the world's most demanding organizations — from hospitals and defense contractors to sovereign wealth funds, global non-profits, and logistics enterprises.
                   </p>
                   <p className="mt-5 text-lg leading-8 text-slate-700">
-                    He has facilitated hundreds of workshops for groups ranging from 10 to 500 people, led international teams of 100+, and built and deployed enterprise-grade AI tools used in production. His work sits at the intersection of human behavior and technology — helping organizations move from AI ambition to disciplined, measurable execution.
+                    He has facilitated hundreds of workshops for groups ranging from 10 to 500 people, led international teams of 100+, and built and deployed enterprise-grade AI tools used in production. Sam specializes in teaching organizations to compress their product development cycle — using AI tools, no-code prototyping, and agent-assisted workflows to move from signal to shipped product in days, not months.
                   </p>
                   <p className="mt-5 text-lg leading-8 text-slate-700">
                     PAIIG exists because most organizations don't need more AI hype. They need a trusted partner who can assess where they actually are, build what they actually need, and help their people actually use it.
