@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-labelledby="title">
+  <title id="title">Practical AI Implementation Group mark</title>
+  <defs>
+    <linearGradient id="surface" x1="10" y1="8" x2="62" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#263a68"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="18" y1="18" x2="55" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="66" height="66" rx="19" fill="url(#surface)"/>
+  <path d="M21 53V19h15.2c9.3 0 15 4.7 15 12.5S45.5 44 36.2 44H29v9H21Zm8-16.4h6.7c4.8 0 7.2-1.7 7.2-5.1s-2.4-5.1-7.2-5.1H29v10.2Z" fill="#f8fafc"/>
+  <path d="M49.5 18.5 54 23l-16.3 16.3-5.1.6.6-5.1 16.3-16.3Z" fill="url(#accent)"/>
+  <circle cx="51.8" cy="20.8" r="2.8" fill="#dbeafe"/>
+</svg>

@@ -26,14 +26,12 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const heroImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663421536846/axGeqRw57podisBRfPU5Zi/ai-consulting-hero-Q4mS9dbNBrsGZcRbzbbaXT.webp";
-const readinessImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663421536846/axGeqRw57podisBRfPU5Zi/ai-readiness-section-hF53owir67fvqsbK9zaV2o.webp";
-const consultationImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663421536846/axGeqRw57podisBRfPU5Zi/consultation-cta-EPN9SeZSWzyhxjNuRHdtCz.webp";
-const logoImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663421536846/axGeqRw57podisBRfPU5Zi/practical-ai-logo-1-ZSLgVbFvdVTj6wZ6BwcH4v.webp";
+const assetBasePath = `${import.meta.env.BASE_URL}images/`;
+const heroImage = `${assetBasePath}paiig-hero.jpg`;
+const readinessImage = `${assetBasePath}paiig-approach.jpg`;
+const consultationImage = `${assetBasePath}paiig-consultation.jpg`;
+const founderImage = `${assetBasePath}sam-whitney-headshot.png`;
+const logoImage = `${assetBasePath}paiig-mark.svg`;
 
 const contactRecipient = "whitney.sam@gmail.com";
 const emailjsServiceId = "service_x5ymj1c";
@@ -235,52 +233,52 @@ const aiTools = [
   {
     name: "Claude",
     company: "Anthropic",
-    logo: "https://www.google.com/s2/favicons?domain=claude.com&sz=128",
+    logo: `${assetBasePath}tools/claude.png`,
   },
   {
     name: "GitHub Copilot",
     company: "GitHub",
-    logo: "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+    logo: `${assetBasePath}tools/github.png`,
   },
   {
     name: "ChatGPT",
     company: "OpenAI",
-    logo: "https://www.google.com/s2/favicons?domain=openai.com&sz=128",
+    logo: `${assetBasePath}tools/openai.png`,
   },
   {
     name: "Perplexity",
     company: "Perplexity",
-    logo: "https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128",
+    logo: `${assetBasePath}tools/perplexity.png`,
   },
   {
     name: "Replit",
     company: "Replit",
-    logo: "https://www.google.com/s2/favicons?domain=replit.com&sz=128",
+    logo: `${assetBasePath}tools/replit.png`,
   },
   {
     name: "Manus",
     company: "Manus",
-    logo: "https://www.google.com/s2/favicons?domain=manus.im&sz=128",
+    logo: `${assetBasePath}tools/manus.png`,
   },
   {
     name: "Gemini",
     company: "Google",
-    logo: "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128",
+    logo: `${assetBasePath}tools/gemini.png`,
   },
   {
     name: "NotebookLM",
     company: "Google",
-    logo: "https://www.google.com/s2/favicons?domain=notebooklm.google.com&sz=128",
+    logo: `${assetBasePath}tools/notebooklm.png`,
   },
   {
     name: "Cursor",
     company: "Cursor",
-    logo: "https://www.google.com/s2/favicons?domain=cursor.com&sz=128",
+    logo: `${assetBasePath}tools/cursor.png`,
   },
   {
     name: "Claude Cowork",
     company: "Anthropic",
-    logo: "https://www.google.com/s2/favicons?domain=claude.com&sz=128",
+    logo: `${assetBasePath}tools/claude.png`,
   },
 ];
 
@@ -1245,7 +1243,7 @@ export default function Home() {
               <div className="flex flex-col gap-6">
                 <div className="overflow-hidden rounded-[1.8rem] border border-slate-200 shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
                   <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663520822653/hxEnjNE3QAq9ebDA5FEMQk/SamWhitneyArbingerHeadshots2024-3_b38124bb.jpg"
+                    src={founderImage}
                     alt="Sam Whitney — Founder, Practical AI Implementation Group"
                     className="h-full w-full object-cover object-top"
                     style={{ maxHeight: '480px' }}
