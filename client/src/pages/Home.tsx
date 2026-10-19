@@ -903,7 +903,7 @@ export default function Home() {
                         This takes about three minutes. Your result is an estimate, not a diagnosis.
                       </p>
                       <Button className="rounded-full bg-slate-950 px-6 py-6 text-sm text-white hover:bg-slate-800" onClick={handleCycleStart} type="button">
-                        Map my cycle
+                        Map my product cycle
                         <ArrowRight className="ml-2 size-4" />
                       </Button>
                     </div>
@@ -969,12 +969,14 @@ export default function Home() {
                                 <div className="mt-2 font-display text-xl font-semibold tracking-[-0.03em] text-slate-950">{stage.title}</div>
                                 <p className="mt-2 text-sm leading-6 text-slate-600">{stage.description}</p>
                               </div>
-                              <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 sm:w-56">
+                              <div className="grid w-full grid-cols-[minmax(7rem,1fr)_8.5rem] gap-3 sm:w-80">
                                 <label className="sr-only" htmlFor={`${stage.key}-duration`}>Estimated time for {stage.title}</label>
                                 <input
                                   id={`${stage.key}-duration`}
-                                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
-                                  min="0.1"
+                                  aria-label={`Estimated time for ${stage.title}`}
+                                  autoComplete="off"
+                                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base font-medium text-slate-900 outline-none transition placeholder:font-normal placeholder:text-slate-400 focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
+                                  inputMode="decimal"
                                   onChange={(event) => {
                                     clearCycleResult();
                                     setCycleForm((current) => ({
@@ -983,8 +985,7 @@ export default function Home() {
                                     }));
                                   }}
                                   placeholder="e.g. 3"
-                                  step="0.5"
-                                  type="number"
+                                  type="text"
                                   value={cycleForm.durations[stage.key]}
                                 />
                                 <label className="sr-only" htmlFor={`${stage.key}-unit`}>Time unit for {stage.title}</label>
