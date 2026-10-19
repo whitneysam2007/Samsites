@@ -36,13 +36,9 @@ const logoImage = `${assetBasePath}paiig-mark.svg`;
 const contactRecipient = "whitney.sam@gmail.com";
 const emailjsServiceId = "service_x5ymj1c";
 const consultationTemplateId = "template_exunaza";
-const surveyTemplateId = "template_exunaza";
+const cycleAssessmentTemplateId = "template_exunaza";
 const emailjsPublicKey = "JBiZ9XbX-Wd-twUS2";
 const siteName = "Practical AI Implementation Group";
-
-const scoredQuestionKeys = ["q1", "q2", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11"] as const;
-
-type ScoredQuestionKey = (typeof scoredQuestionKeys)[number];
 
 type ContactForm = {
   name: string;
@@ -52,108 +48,63 @@ type ContactForm = {
   challenge: string;
 };
 
-type SurveyForm = {
+type DurationUnit = "days" | "weeks" | "months";
+type CycleStageKey = "ideation" | "build" | "testing" | "market";
+
+type ProductCycleForm = {
   name: string;
   email: string;
   organization: string;
-  primaryAiTool: string;
-  experienceNotes: string;
-  q1: string;
-  q2: string;
-  q4: string;
-  q5: string;
-  q6: string;
-  q7: string;
-  q8: string;
-  q9: string;
-  q10: string;
-  q11: string;
+  role: string;
+  productType: string;
+  processDescription: string;
+  primaryBottleneck: string;
+  durations: Record<CycleStageKey, string>;
+  durationUnits: Record<CycleStageKey, DurationUnit>;
 };
 
-const readinessQuestions: Array<{
-  key: ScoredQuestionKey;
-  number: number;
-  category: string;
-  prompt: string;
-}> = [
-  {
-    key: "q1",
-    number: 2,
-    category: "Mindset & culture",
-    prompt:
-      "Our organization sees AI as a competitive advantage in how we build and ship products, not just a productivity shortcut.",
-  },
-  {
-    key: "q2",
-    number: 3,
-    category: "Mindset & culture",
-    prompt:
-      "People on our product and development teams feel they have genuine permission to experiment with new AI tools and no-code approaches.",
-  },
-  {
-    key: "q4",
-    number: 4,
-    category: "Current process speed",
-    prompt:
-      "Our organization can move from a validated product idea to a working prototype in under two weeks.",
-  },
-  {
-    key: "q5",
-    number: 5,
-    category: "Current process speed",
-    prompt:
-      "Our product development cycle is fast enough to test and respond to market signals before the window closes.",
-  },
-  {
-    key: "q6",
-    number: 6,
-    category: "Tool fluency",
-    prompt:
-      "Team members are comfortable using AI tools (like Replit, Claude, or ChatGPT) to accelerate prototyping and development tasks.",
-  },
-  {
-    key: "q7",
-    number: 7,
-    category: "Tool fluency",
-    prompt:
-      "Our teams regularly use AI to assist with tasks like drafting requirements, generating code, or analyzing user feedback.",
-  },
-  {
-    key: "q8",
-    number: 8,
-    category: "Process & workflow",
-    prompt:
-      "We have a clear, repeatable process for moving from idea to prototype to tested product — and most of the team knows it.",
-  },
-  {
-    key: "q9",
-    number: 9,
-    category: "Process & workflow",
-    prompt:
-      "Our organization tests with real users early in the product cycle, before significant development investment is made.",
-  },
-  {
-    key: "q10",
-    number: 10,
-    category: "Leadership & investment",
-    prompt:
-      "Leadership in our organization actively supports and invests in faster, AI-enabled product development approaches.",
-  },
-  {
-    key: "q11",
-    number: 11,
-    category: "Leadership & investment",
-    prompt:
-      "Our organization measures and tracks the speed and efficiency of our product development cycle as a key performance indicator.",
-  },
+type ProductCycleResult = {
+  totalDays: number;
+  stageDays: Record<CycleStageKey, number>;
+  longestStage: CycleStageKey;
+};
+
+const durationUnits: Array<{ value: DurationUnit; label: string; days: number }> = [
+  { value: "days", label: "days", days: 1 },
+  { value: "weeks", label: "weeks", days: 7 },
+  { value: "months", label: "months", days: 30 },
 ];
 
-const readinessScale = [
-  { value: "1", label: "Strongly disagree" },
-  { value: "2", label: "Disagree" },
-  { value: "3", label: "Neutral" },
-  { value: "4", label: "Agree" },
-  { value: "5", label: "Strongly agree" },
+const cycleStages: Array<{
+  key: CycleStageKey;
+  number: string;
+  title: string;
+  description: string;
+}> = [
+  {
+    key: "ideation",
+    number: "01",
+    title: "Idea to approved direction",
+    description: "From the first signal or idea until the team has enough alignment to begin building.",
+  },
+  {
+    key: "build",
+    number: "02",
+    title: "Build",
+    description: "From an approved direction to a working product, prototype, or meaningful first release.",
+  },
+  {
+    key: "testing",
+    number: "03",
+    title: "Test and iterate",
+    description: "From the first usable version through customer or user feedback and the changes it creates.",
+  },
+  {
+    key: "market",
+    number: "04",
+    title: "Ready for market",
+    description: "From a tested product to launch, rollout, or availability for the people it is meant to serve.",
+  },
 ];
 
 const services = [
@@ -290,79 +241,86 @@ const initialForm: ContactForm = {
   challenge: "",
 };
 
-const initialSurveyForm: SurveyForm = {
+const initialProductCycleForm: ProductCycleForm = {
   name: "",
   email: "",
   organization: "",
-  primaryAiTool: "",
-  experienceNotes: "",
-  q1: "",
-  q2: "",
-  q4: "",
-  q5: "",
-  q6: "",
-  q7: "",
-  q8: "",
-  q9: "",
-  q10: "",
-  q11: "",
+  role: "",
+  productType: "",
+  processDescription: "",
+  primaryBottleneck: "",
+  durations: {
+    ideation: "",
+    build: "",
+    testing: "",
+    market: "",
+  },
+  durationUnits: {
+    ideation: "weeks",
+    build: "weeks",
+    testing: "weeks",
+    market: "weeks",
+  },
 };
 
-const readinessLevels = [
-  {
-    title: "Pre-Transformation",
-    min: 0,
-    max: 20,
-    description:
-      "Your product development process is largely traditional — long cycles, heavy consensus, and limited AI tool use. Start here with mindset and exposure. The goal is to help your team see what's possible before committing to any new process or tooling.",
-  },
-  {
-    title: "Aware but Not Moving",
-    min: 21,
-    max: 28,
-    description:
-      "There's awareness that AI could accelerate product development, but it hasn't changed how your team actually works. The gap is usually permission and practical experience. The opportunity is to get hands-on — low-stakes prototyping with real tools builds confidence faster than any training alone.",
-  },
-  {
-    title: "Early Mover",
-    min: 29,
-    max: 36,
-    description:
-      "Your team is experimenting with AI tools and seeing early value, but it's inconsistent and individual. What's needed now is a shared process — a repeatable path from idea to prototype to test that the whole team can follow, not just the early adopters.",
-  },
-  {
-    title: "Building Velocity",
-    min: 37,
-    max: 44,
-    description:
-      "AI-powered development is becoming part of how your team works. Prototyping is faster and there are emerging team-level practices. The next move is to operationalize — turn individual wins into repeatable workflows and role-specific tools that deliver measurable speed and value.",
-  },
-  {
-    title: "Transformation Leader",
-    min: 45,
-    max: 50,
-    description:
-      "Your organization has strong AI fluency in product development, fast cycle times, and shared operating practices. The path forward is scaling — capture what's working, build the infrastructure to sustain it, and stay ahead as AI tools and capabilities continue to evolve.",
-  },
-];
+const getDurationDays = (value: string, unit: DurationUnit) => {
+  const multiplier = durationUnits.find((option) => option.value === unit)?.days ?? 1;
+  return Math.round(Number(value) * multiplier);
+};
 
-const getReadinessLevel = (score: number) => {
-  return readinessLevels.find((level) => score >= level.min && score <= level.max) ?? readinessLevels[readinessLevels.length - 1];
+const formatDuration = (days: number) => {
+  if (days >= 60) {
+    const months = Math.round((days / 30) * 10) / 10;
+    return `${months} ${months === 1 ? "month" : "months"}`;
+  }
+
+  if (days >= 14) {
+    const weeks = Math.round((days / 7) * 10) / 10;
+    return `${weeks} ${weeks === 1 ? "week" : "weeks"}`;
+  }
+
+  return `${days} ${days === 1 ? "day" : "days"}`;
+};
+
+const getProductCycleResult = (cycleForm: ProductCycleForm): ProductCycleResult => {
+  const stageDays = Object.fromEntries(
+    cycleStages.map((stage) => [stage.key, getDurationDays(cycleForm.durations[stage.key], cycleForm.durationUnits[stage.key])]),
+  ) as Record<CycleStageKey, number>;
+  const longestStage = cycleStages.reduce(
+    (longest, stage) => (stageDays[stage.key] > stageDays[longest.key] ? stage : longest),
+    cycleStages[0]!,
+  ).key;
+
+  return {
+    totalDays: Object.values(stageDays).reduce((total, days) => total + days, 0),
+    stageDays,
+    longestStage,
+  };
+};
+
+const getCycleSummaryMessage = (result: ProductCycleResult) => {
+  const longestStage = cycleStages.find((stage) => stage.key === result.longestStage) ?? cycleStages[0]!;
+
+  if (result.totalDays >= 180) {
+    return `Your current estimate is more than six months from idea to market. ${longestStage.title} is the longest named stage, which gives us a useful place to begin the conversation.`;
+  }
+
+  if (result.totalDays >= 90) {
+    return `Your current estimate is roughly a quarter or more from idea to market. ${longestStage.title} is the longest named stage, so it is a natural place to look for unnecessary handoffs and delay.`;
+  }
+
+  return `${longestStage.title} is the longest named stage in your current cycle. A focused review can uncover which steps genuinely need time and which can be simplified, combined, or tested earlier.`;
 };
 
 export default function Home() {
   const [form, setForm] = useState<ContactForm>(initialForm);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [surveyForm, setSurveyForm] = useState<SurveyForm>(initialSurveyForm);
-  const [surveyStarted, setSurveyStarted] = useState(false);
-  const [surveySubmitted, setSurveySubmitted] = useState(false);
-  const [isSurveySubmitting, setIsSurveySubmitting] = useState(false);
-  const [surveyResult, setSurveyResult] = useState<{
-    score: number;
-    title: string;
-    description: string;
-  } | null>(null);
+  const [cycleForm, setCycleForm] = useState<ProductCycleForm>(initialProductCycleForm);
+  const [cycleStarted, setCycleStarted] = useState(false);
+  const [cycleSubmitted, setCycleSubmitted] = useState(false);
+  const [isCycleSubmitting, setIsCycleSubmitting] = useState(false);
+  const [cycleResult, setCycleResult] = useState<ProductCycleResult | null>(null);
   const [showTerms, setShowTerms] = useState(false);
 
   useEffect(() => {
@@ -403,84 +361,86 @@ export default function Home() {
     }
   };
 
-  const handleSurveyStart = () => {
-    if (!surveyForm.name || !surveyForm.organization || !surveyForm.email) {
-      toast.error("Please enter your name, organization, and work email before starting the survey.");
-      return;
-    }
-
-    setSurveySubmitted(false);
-    setSurveyResult(null);
-    setSurveyStarted(true);
-    toast.success("Thanks. You can now complete the assessment.");
+  const clearCycleResult = () => {
+    setCycleSubmitted(false);
+    setCycleResult(null);
   };
 
-  const handleSurveySubmit = async () => {
-    const missingScore = scoredQuestionKeys.some((key) => !surveyForm[key]);
-
-    if (!surveyStarted) {
-      toast.error("Please submit your contact information first to unlock the survey.");
+  const handleCycleStart = () => {
+    if (!cycleForm.name || !cycleForm.organization || !cycleForm.email) {
+      toast.error("Please enter your name, organization, and work email before mapping your product cycle.");
       return;
     }
+
+    clearCycleResult();
+    setCycleStarted(true);
+    toast.success("Thanks. You can now map your product cycle.");
+  };
+
+  const handleCycleSubmit = async () => {
+    if (!cycleStarted) {
+      toast.error("Please submit your contact information first to unlock the assessment.");
+      return;
+    }
+
+    const hasMissingDuration = cycleStages.some((stage) => {
+      const value = Number(cycleForm.durations[stage.key]);
+      return !Number.isFinite(value) || value <= 0;
+    });
 
     if (
-      !surveyForm.name ||
-      !surveyForm.organization ||
-      !surveyForm.email ||
-      !surveyForm.primaryAiTool ||
-      !surveyForm.experienceNotes ||
-      missingScore
+      !cycleForm.name ||
+      !cycleForm.organization ||
+      !cycleForm.email ||
+      !cycleForm.processDescription ||
+      hasMissingDuration
     ) {
-      toast.error("Please complete every survey question before seeing your readiness result.");
+      toast.error("Please describe your process and enter a time estimate for all four stages.");
       return;
     }
 
-    setIsSurveySubmitting(true);
-
-    const score = scoredQuestionKeys.reduce((sum, key) => sum + Number(surveyForm[key]), 0);
-    const level = getReadinessLevel(score);
+    setIsCycleSubmitting(true);
+    const result = getProductCycleResult(cycleForm);
+    const longestStage = cycleStages.find((stage) => stage.key === result.longestStage) ?? cycleStages[0]!;
     const message = [
-      `AI Readiness Survey submission for ${surveyForm.name}`,
-      `Organization: ${surveyForm.organization || "Not provided"}`,
-      `Reply to: ${surveyForm.email}`,
-      `Readiness score: ${score}/50`,
-      `Readiness level: ${level.title}`,
-      `Q1 — Primary AI tool: ${surveyForm.primaryAiTool}`,
+      `Product Cycle Assessment for ${cycleForm.name}`,
+      `Organization: ${cycleForm.organization}`,
+      `Role: ${cycleForm.role || "Not provided"}`,
+      `Product or initiative: ${cycleForm.productType || "Not provided"}`,
+      `Reply to: ${cycleForm.email}`,
       "",
-      "Scored responses:",
-      ...readinessQuestions.map(
-        (question) =>
-          `Q${question.number} (${question.category}) — ${question.prompt} :: ${surveyForm[question.key]}/5`,
+      "Current process:",
+      cycleForm.processDescription,
+      "",
+      "Time by stage:",
+      ...cycleStages.map(
+        (stage) =>
+          `${stage.number} — ${stage.title}: ${cycleForm.durations[stage.key]} ${cycleForm.durationUnits[stage.key]} (${formatDuration(result.stageDays[stage.key])})`,
       ),
+      `Estimated end-to-end product cycle: ${formatDuration(result.totalDays)}`,
+      `Longest named stage: ${longestStage.title} (${formatDuration(result.stageDays[longestStage.key])})`,
       "",
-      `Q12 — Experience notes: ${surveyForm.experienceNotes}`,
+      `Primary bottleneck: ${cycleForm.primaryBottleneck || "Not specified"}`,
+      `Assessment summary: ${getCycleSummaryMessage(result)}`,
     ].join("\n");
+
+    setCycleResult(result);
+    setCycleSubmitted(true);
 
     try {
       await emailjs.send(
         emailjsServiceId,
-        surveyTemplateId,
+        cycleAssessmentTemplateId,
         {
-          from_name: surveyForm.name,
-          organization: surveyForm.organization || "Not provided",
-          reply_to: surveyForm.email,
-          interest: "AI Readiness Survey",
+          from_name: cycleForm.name,
+          organization: cycleForm.organization,
+          reply_to: cycleForm.email,
+          interest: "Product Cycle Assessment",
           message,
-          readiness_score: `${score}/50`,
-          readiness_band: level.title,
-          readiness_interpretation: level.description,
-          primary_ai_tool: surveyForm.primaryAiTool,
-          q1: surveyForm.q1,
-          q2: surveyForm.q2,
-          q4: surveyForm.q4,
-          q5: surveyForm.q5,
-          q6: surveyForm.q6,
-          q7: surveyForm.q7,
-          q8: surveyForm.q8,
-          q9: surveyForm.q9,
-          q10: surveyForm.q10,
-          q11: surveyForm.q11,
-          experience_notes: surveyForm.experienceNotes,
+          product_cycle_total: formatDuration(result.totalDays),
+          longest_cycle_stage: longestStage.title,
+          cycle_process: cycleForm.processDescription,
+          primary_bottleneck: cycleForm.primaryBottleneck || "Not specified",
           submitted_at: new Date().toLocaleString("en-US", {
             dateStyle: "medium",
             timeStyle: "short",
@@ -490,23 +450,43 @@ export default function Home() {
         },
       );
 
-      setSurveyResult({
-        score,
-        title: level.title,
-        description: level.description,
-      });
-      setSurveySubmitted(true);
-      toast.success("Your readiness assessment has been sent. We will follow up within 48 hours.");
+      toast.success("Your product-cycle assessment has been sent. Your summary is ready below.");
     } catch (error) {
-      console.error("EmailJS survey submission failed", error);
-      toast.error("We couldn't send the readiness assessment just now. Please try again in a moment.");
+      console.error("EmailJS product-cycle assessment submission failed", error);
+      toast.error("Your summary is ready below, but we couldn't send the assessment just now. Please try again in a moment.");
     } finally {
-      setIsSurveySubmitting(false);
+      setIsCycleSubmitting(false);
     }
   };
 
-  const totalPossibleScore = scoredQuestionKeys.length * 5;
-  const completedSurveyAnswers = scoredQuestionKeys.filter((key) => Boolean(surveyForm[key])).length;
+  const prepareCycleReview = () => {
+    if (!cycleResult) return;
+
+    const stageSummary = cycleStages
+      .map((stage) => `${stage.title}: ${formatDuration(cycleResult.stageDays[stage.key])}`)
+      .join("\n");
+
+    setForm({
+      name: cycleForm.name,
+      organization: cycleForm.organization,
+      email: cycleForm.email,
+      interest: "Advisory",
+      challenge: [
+        "I completed the Product Cycle Assessment.",
+        `Estimated idea-to-market cycle: ${formatDuration(cycleResult.totalDays)}.`,
+        "",
+        "Stage breakdown:",
+        stageSummary,
+        "",
+        `Current process: ${cycleForm.processDescription}`,
+        `Primary bottleneck: ${cycleForm.primaryBottleneck || "Not specified"}`,
+        "",
+        "I would like to identify how we can simplify and speed up this process.",
+      ].join("\n"),
+    });
+    setRequestSubmitted(false);
+    requestAnimationFrame(() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -550,7 +530,7 @@ export default function Home() {
               variant="outline"
               className="w-full rounded-full border-slate-300 bg-white px-5 text-center text-slate-700 hover:bg-slate-50 sm:w-auto"
             >
-              <a href="#readiness-survey">Take the readiness survey</a>
+              <a href="#readiness-survey">Map your product cycle</a>
             </Button>
             <Button asChild className="w-full rounded-full bg-slate-950 px-5 text-center text-white hover:bg-slate-800 sm:w-auto">
               <a href="#consultation">Book a free 30-minute consultation</a>
@@ -842,27 +822,27 @@ export default function Home() {
         </section>
 
 
-        {/* ── AI Readiness Survey ── */}
+        {/* ── Product Cycle Assessment ── */}
         <section id="readiness-survey" className="relative overflow-hidden border-b border-slate-200/70 bg-[linear-gradient(180deg,#f7fbff_0%,#ffffff_100%)] py-24">
           <div className="container">
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div className="lg:sticky lg:top-28">
-                <div className="section-tag">Product development readiness assessment</div>
+                <div className="section-tag">Product cycle assessment</div>
                 <h2 className="mt-6 max-w-xl font-display text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  Find out how ready your organization is to transform how it builds and ships.
+                  See the real time cost of your product-development process.
                 </h2>
                 <p className="mt-7 max-w-xl text-lg leading-8 text-slate-600">
-                  Start by submitting your contact details to unlock a quick assessment of your product development readiness — where you're strong, where you're stuck, and what to do next. Your score stays hidden until every question is answered.
+                  Outline how a typical product moves through your organization, then estimate the time it takes to shape the idea, build, test, and reach the market. We will turn it into one clear cycle summary.
                 </p>
               </div>
 
               <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.08)] sm:p-8 lg:p-10">
-                {!surveyStarted ? (
+                {!cycleStarted ? (
                   <>
                     <div className="rounded-[1.85rem] border border-slate-200 bg-slate-50/80 p-6">
                       <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Step 1 · Contact details</div>
                       <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                        Enter your contact information first. After you submit it, the full assessment opens on this page. Your result stays hidden until you complete the survey.
+                        Enter your contact information first. After you continue, the assessment will open here and your cycle summary will appear when it is complete.
                       </p>
                     </div>
 
@@ -872,12 +852,11 @@ export default function Home() {
                         <input
                           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                           onChange={(event) => {
-                            setSurveySubmitted(false);
-                            setSurveyResult(null);
-                            setSurveyForm((current) => ({ ...current, name: event.target.value }));
+                            clearCycleResult();
+                            setCycleForm((current) => ({ ...current, name: event.target.value }));
                           }}
                           placeholder="Your name"
-                          value={surveyForm.name}
+                          value={cycleForm.name}
                         />
                       </label>
                       <label className="space-y-2">
@@ -885,13 +864,12 @@ export default function Home() {
                         <input
                           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                           onChange={(event) => {
-                            setSurveySubmitted(false);
-                            setSurveyResult(null);
-                            setSurveyForm((current) => ({ ...current, email: event.target.value }));
+                            clearCycleResult();
+                            setCycleForm((current) => ({ ...current, email: event.target.value }));
                           }}
                           placeholder="name@organization.com"
                           type="email"
-                          value={surveyForm.email}
+                          value={cycleForm.email}
                         />
                       </label>
                       <label className="space-y-2 sm:col-span-2">
@@ -899,22 +877,33 @@ export default function Home() {
                         <input
                           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                           onChange={(event) => {
-                            setSurveySubmitted(false);
-                            setSurveyResult(null);
-                            setSurveyForm((current) => ({ ...current, organization: event.target.value }));
+                            clearCycleResult();
+                            setCycleForm((current) => ({ ...current, organization: event.target.value }));
                           }}
                           placeholder="Company, school, division, or team"
-                          value={surveyForm.organization}
+                          value={cycleForm.organization}
+                        />
+                      </label>
+                      <label className="space-y-2 sm:col-span-2">
+                        <span className="text-sm text-slate-600">Your role <span className="text-slate-400">(optional)</span></span>
+                        <input
+                          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
+                          onChange={(event) => {
+                            clearCycleResult();
+                            setCycleForm((current) => ({ ...current, role: event.target.value }));
+                          }}
+                          placeholder="Product leader, founder, operator, team lead, or another role"
+                          value={cycleForm.role}
                         />
                       </label>
                     </div>
 
                     <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <p className="max-w-xl text-sm leading-7 text-slate-600">
-                        Step 1 only unlocks the survey. The final score and interpretation will appear only after the full assessment is submitted.
+                        This takes about three minutes. Your result is an estimate, not a diagnosis.
                       </p>
-                      <Button className="rounded-full bg-slate-950 px-6 py-6 text-sm text-white hover:bg-slate-800" onClick={handleSurveyStart} type="button">
-                        Continue to survey
+                      <Button className="rounded-full bg-slate-950 px-6 py-6 text-sm text-white hover:bg-slate-800" onClick={handleCycleStart} type="button">
+                        Map my cycle
                         <ArrowRight className="ml-2 size-4" />
                       </Button>
                     </div>
@@ -924,17 +913,16 @@ export default function Home() {
                     <div className="rounded-[1.85rem] border border-[#dbe7ff] bg-[linear-gradient(135deg,rgba(239,246,255,0.9),rgba(245,243,255,0.9))] p-6">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div>
-                          <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Step 2 · Complete the assessment</div>
+                          <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Step 2 · Map a typical product cycle</div>
                           <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-700">
-                            Survey for <span className="font-semibold text-slate-950">{surveyForm.name}</span> at <span className="font-semibold text-slate-950">{surveyForm.organization}</span>. Complete every question to reveal your readiness score and interpretation.
+                            Start with a representative product, feature, or initiative for <span className="font-semibold text-slate-950">{cycleForm.organization}</span>. Estimate elapsed time, including waiting, approvals, and rework—not only hands-on work.
                           </p>
                         </div>
                         <button
                           className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
                           onClick={() => {
-                            setSurveyStarted(false);
-                            setSurveySubmitted(false);
-                            setSurveyResult(null);
+                            setCycleStarted(false);
+                            clearCycleResult();
                           }}
                           type="button"
                         >
@@ -944,108 +932,137 @@ export default function Home() {
                     </div>
 
                     <label className="mt-8 block space-y-2">
-                      <span className="text-sm text-slate-600">Q1. What AI or no-code tools does your team currently use in product development (if any)?</span>
+                      <span className="text-sm text-slate-600">What kind of product, feature, or initiative are you thinking about? <span className="text-slate-400">(optional)</span></span>
                       <input
                         className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                         onChange={(event) => {
-                          setSurveySubmitted(false);
-                          setSurveyResult(null);
-                          setSurveyForm((current) => ({ ...current, primaryAiTool: event.target.value }));
+                          clearCycleResult();
+                          setCycleForm((current) => ({ ...current, productType: event.target.value }));
                         }}
-                        placeholder="Copilot, ChatGPT, Gemini, Claude, or another tool"
-                        value={surveyForm.primaryAiTool}
+                        placeholder="A new offering, a customer-facing feature, an internal tool, or another initiative"
+                        value={cycleForm.productType}
                       />
                     </label>
 
-                    <div className="mt-8 space-y-5">
-                      {readinessQuestions.map((question) => (
-                        <div key={question.key} className="rounded-[1.75rem] border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
-                          <div>
-                            <div className="text-xs uppercase tracking-[0.22em] text-slate-500">Q{question.number} · {question.category}</div>
-                            <p className="mt-3 max-w-3xl text-base leading-7 text-slate-900">{question.prompt}</p>
-                          </div>
-
-                          <div className="mt-5 grid grid-cols-5 gap-2">
-                            {readinessScale.map((option) => {
-                              const selected = surveyForm[question.key] === option.value;
-                              return (
-                                <button
-                                  key={`${question.key}-${option.value}`}
-                                  className={`rounded-2xl border px-3 py-3 text-sm font-medium transition ${
-                                    selected
-                                      ? "border-slate-900 bg-slate-900 text-white shadow-[0_12px_30px_rgba(15,23,42,0.15)]"
-                                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100"
-                                  }`}
-                                  onClick={() => {
-                                    setSurveySubmitted(false);
-                                    setSurveyResult(null);
-                                    setSurveyForm((current) => ({ ...current, [question.key]: option.value }));
-                                  }}
-                                  type="button"
-                                >
-                                  <div className="text-base">{option.value}</div>
-                                  <div className="mt-1 hidden text-[11px] leading-4 sm:block">{option.label}</div>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
                     <label className="mt-8 block space-y-2">
-                      <span className="text-sm text-slate-600">Q12. Describe your current product development process — from idea to launch. Where does it slow down or break down?</span>
+                      <span className="text-sm text-slate-600">Outline your current product process <span className="text-red-500">*</span></span>
                       <textarea
                         className="min-h-40 w-full rounded-[1.6rem] border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
                         onChange={(event) => {
-                          setSurveySubmitted(false);
-                          setSurveyResult(null);
-                          setSurveyForm((current) => ({ ...current, experienceNotes: event.target.value }));
+                          clearCycleResult();
+                          setCycleForm((current) => ({ ...current, processDescription: event.target.value }));
                         }}
-                        placeholder="Walk us through how a typical product idea moves from concept to launch in your organization. Where are the bottlenecks, handoffs, or delays?"
-                        value={surveyForm.experienceNotes}
+                        placeholder="Walk us through a typical path from an initial idea to market. Who is involved? Where are the approvals, handoffs, waiting periods, or rework loops?"
+                        value={cycleForm.processDescription}
+                      />
+                    </label>
+
+                    <div className="mt-8">
+                      <div className="text-sm text-slate-600">Estimate elapsed time by stage <span className="text-red-500">*</span></div>
+                      <p className="mt-2 text-sm leading-7 text-slate-500">Use the average for a typical product. Include the calendar time between steps, not just the hours people are actively working.</p>
+                      <div className="mt-5 space-y-4">
+                        {cycleStages.map((stage) => (
+                          <div key={stage.key} className="rounded-[1.75rem] border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
+                            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                              <div className="max-w-xl">
+                                <div className="text-xs uppercase tracking-[0.22em] text-slate-500">{stage.number} · Product cycle</div>
+                                <div className="mt-2 font-display text-xl font-semibold tracking-[-0.03em] text-slate-950">{stage.title}</div>
+                                <p className="mt-2 text-sm leading-6 text-slate-600">{stage.description}</p>
+                              </div>
+                              <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 sm:w-56">
+                                <label className="sr-only" htmlFor={`${stage.key}-duration`}>Estimated time for {stage.title}</label>
+                                <input
+                                  id={`${stage.key}-duration`}
+                                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
+                                  min="0.1"
+                                  onChange={(event) => {
+                                    clearCycleResult();
+                                    setCycleForm((current) => ({
+                                      ...current,
+                                      durations: { ...current.durations, [stage.key]: event.target.value },
+                                    }));
+                                  }}
+                                  placeholder="e.g. 3"
+                                  step="0.5"
+                                  type="number"
+                                  value={cycleForm.durations[stage.key]}
+                                />
+                                <label className="sr-only" htmlFor={`${stage.key}-unit`}>Time unit for {stage.title}</label>
+                                <select
+                                  id={`${stage.key}-unit`}
+                                  className="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-slate-700 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
+                                  onChange={(event) => {
+                                    clearCycleResult();
+                                    setCycleForm((current) => ({
+                                      ...current,
+                                      durationUnits: { ...current.durationUnits, [stage.key]: event.target.value as DurationUnit },
+                                    }));
+                                  }}
+                                  value={cycleForm.durationUnits[stage.key]}
+                                >
+                                  {durationUnits.map((unit) => <option key={unit.value} value={unit.value}>{unit.label}</option>)}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <label className="mt-8 block space-y-2">
+                      <span className="text-sm text-slate-600">Where does time most often get lost? <span className="text-slate-400">(optional)</span></span>
+                      <input
+                        className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#86beff] focus:ring-4 focus:ring-[#86beff]/20"
+                        onChange={(event) => {
+                          clearCycleResult();
+                          setCycleForm((current) => ({ ...current, primaryBottleneck: event.target.value }));
+                        }}
+                        placeholder="Approvals, requirements, handoffs, technical build, customer access, launch coordination, or another constraint"
+                        value={cycleForm.primaryBottleneck}
                       />
                     </label>
 
                     <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <p className="max-w-xl text-sm leading-7 text-slate-600">
-                        Complete the full survey to reveal your score in the browser and send the same response set to Practical AI Implementation Group for follow-up. We will review the assessment and respond within 48 hours.
+                        You will see your estimated end-to-end cycle and stage-by-stage breakdown here. We will also receive the same summary so we can prepare for a useful conversation.
                       </p>
                       <Button
                         className="rounded-full bg-slate-950 px-6 py-6 text-sm text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
-                        disabled={isSurveySubmitting}
-                        onClick={handleSurveySubmit}
+                        disabled={isCycleSubmitting}
+                        onClick={handleCycleSubmit}
                         type="button"
                       >
-                        {isSurveySubmitting ? "Calculating..." : "See result"}
-                        {!isSurveySubmitting && <ArrowRight className="ml-2 size-4" />}
+                        {isCycleSubmitting ? "Calculating..." : "See my cycle summary"}
+                        {!isCycleSubmitting && <ArrowRight className="ml-2 size-4" />}
                       </Button>
                     </div>
 
-                    {surveySubmitted && surveyResult && (
+                    {cycleSubmitted && cycleResult && (
                       <div className="mt-6 rounded-[1.6rem] border border-emerald-200 bg-emerald-50 px-5 py-5 text-emerald-950">
                         <div className="flex items-start gap-3">
                           <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" />
                           <div>
-                            <div className="text-sm font-semibold tracking-[0.01em]">Assessment submitted successfully.</div>
+                            <div className="text-sm font-semibold tracking-[0.01em]">Your product-cycle summary</div>
                             <p className="mt-2 text-sm leading-7 text-emerald-900/90">
-                              Your readiness score is <span className="font-semibold">{surveyResult.score} / {totalPossibleScore}</span>, which places you in the <span className="font-semibold">{surveyResult.title}</span> level.
+                              Your current estimate is <span className="font-semibold">{formatDuration(cycleResult.totalDays)}</span> from idea to market.
                             </p>
-                              <p className="mt-2 text-sm leading-7 text-emerald-900/90">{surveyResult.description}</p>
-                            <div className="mt-4">
-                              <Button asChild className="rounded-full bg-emerald-600 px-6 py-2 text-sm text-white hover:bg-emerald-700">
-                                <a href="#consultation">Schedule a call and let's explore next steps</a>
-                              </Button>
+                            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                              {cycleStages.map((stage) => (
+                                <div key={stage.key} className="rounded-2xl border border-emerald-200/80 bg-white/70 p-4">
+                                  <div className="text-xs uppercase tracking-[0.18em] text-emerald-800/70">{stage.number}</div>
+                                  <div className="mt-2 text-sm font-semibold text-emerald-950">{stage.title}</div>
+                                  <div className="mt-1 text-lg font-semibold tracking-[-0.02em] text-emerald-900">{formatDuration(cycleResult.stageDays[stage.key])}</div>
+                                </div>
+                              ))}
                             </div>
+                            <p className="mt-5 text-sm leading-7 text-emerald-900/90">{getCycleSummaryMessage(cycleResult)}</p>
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-                              <Button asChild className="rounded-full bg-emerald-900 px-5 py-5 text-sm text-white hover:bg-emerald-800">
-                                <a href="#consultation">
-                                  Book a consultation now
-                                  <ArrowRight className="ml-2 size-4" />
-                                </a>
+                              <Button className="rounded-full bg-emerald-900 px-5 py-5 text-sm text-white hover:bg-emerald-800" onClick={prepareCycleReview} type="button">
+                                Review my cycle with Sam
+                                <ArrowRight className="ml-2 size-4" />
                               </Button>
                               <p className="text-sm leading-7 text-emerald-900/80">
-                                If you would like to discuss the result right away, continue directly to the consultation form below.
+                                This will add your cycle summary to the consultation form below, ready for you to review before sending.
                               </p>
                             </div>
                           </div>
